@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { Send as SendIcon } from '@mui/icons-material';
+import { Send as SendIcon, Download as DownloadIcon } from '@mui/icons-material';
 import axios from 'axios';
 import '../styles/Chat.css';
 import BotLogo from '../images/bot.png';
 import User from '../images/user.png';
+import Poster from '../images/poster.png';
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
@@ -18,7 +19,7 @@ const Chat = () => {
 
     //handle user prompt
     const handleSendMessage = () => {
-        const newMessages = [...messages, { text: userMessage, sender: 'user' }];
+        const newMessages = [...messages, { text: userMessage, sender: 'user' }];       // CHANGE TEXT TO MEDIA
         setMessages(newMessages);
         setUserMessage('');
         handleAIReply(newMessages);
@@ -42,8 +43,8 @@ const Chat = () => {
         //     setIsGenerating(false);
         // });
 
-        const aiReply = "This is a AI reply";
-            setMessages([...newMessages, { text: aiReply, sender: 'ai' }]);
+        const poster = Poster;
+        setMessages([...newMessages, { media: poster, sender: 'ai' }]);
         setIsGenerating(false);
     };
 
@@ -54,16 +55,16 @@ const Chat = () => {
     }, [messages]);
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: 'primary.light' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', backgroundColor: 'primary.light' }}>
 
             <Box className="right" sx={{ display: 'flex', flexDirection: 'column', flex: 1, paddingX: '15%', paddingY: '3%', overflowY: 'auto', }}>
                 <Box className='chat-section' sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                     {messages.length === 0 ? (
                         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                             <Box className='welcome-message'>
-                                <img src={BotLogo} alt="bot logo" style={{ width: '10%', margin: '20px' }} />
+                                <img src={BotLogo} alt="bot logo" style={{ width: '10%', margin: '20px', padding: '25px' }} />
                                 <Typography variant="h5" align="center">
-                                    How can I help you today?
+                                    Provide details about your advertisement or promotion, and I'll design a custom poster for you.
                                 </Typography>
                             </Box>
                         </Box>
@@ -79,23 +80,52 @@ const Chat = () => {
                                             <>
                                                 <img src={User} alt="user" style={{ width: '40px' }} />
                                                 <Typography variant="body1" sx={{ marginLeft: '8px' }}>
-                                                    User
+                                                    &nbsp;You
                                                 </Typography>
                                             </>
                                             :
                                             <>
                                                 <img src={BotLogo} alt="bot" style={{ width: '40px' }} />
                                                 <Typography variant="body1" sx={{ marginLeft: '8px' }}>
-                                                    Chatbot
+                                                    &nbsp;Chatbot
                                                 </Typography>
                                             </>
                                         }
                                     </Box>
+                                    {message.media ? (
+                                        <Box sx={{ maxWidth: '50%', marginTop: '18px', position: 'relative' }}>
+                                            <img src={message.media} alt="AI Reply" style={{ width: '100%', borderRadius: '12px' }} />
+                                            <IconButton aria-label="download"
+                                                onClick={() => {
+                                                    const link = document.createElement('a');
+                                                    link.href = message.media;
+                                                    link.download = 'poster.jpg';
+                                                    document.body.appendChild(link);
+                                                    link.click();
+                                                    document.body.removeChild(link);
+                                                }}
+                                                className='poster-download-button'
+                                                sx={{ 
+                                                    position: 'absolute', 
+                                                    top: '10px', 
+                                                    left: '10px', 
+                                                    color: 'white', 
+                                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                                    borderRadius: '8px',
+                                                    padding: '4px',
+                                                    '&:hover': {
+                                                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                                                    }
+                                                }}>
+                                                <DownloadIcon />
+                                            </IconButton>
+                                        </Box>
+                                    ) : (
                                         <Typography variant="body1" sx={{ marginTop: '8px' }}>
                                             {message.text}
                                         </Typography>
+                                    )}
                                 </Box>
-
                             </Box>
                         ))
                     )}
