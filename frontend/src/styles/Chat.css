@@ -1,0 +1,82 @@
+@keyframes dot {
+
+    0%,
+    20% {
+        color: rgba(0, 0, 0, 0);
+        text-shadow: .25em 0 0 rgba(0, 0, 0, 0), .5em 0 0 rgba(0, 0, 0, 0);
+    }
+
+    40% {
+        color: black;
+        text-shadow: .25em 0 0 rgba(0, 0, 0, 0), .5em 0 0 rgba(0, 0, 0, 0);
+    }
+
+    60% {
+        text-shadow: .25em 0 0 black, .5em 0 0 rgba(0, 0, 0, 0);
+    }
+
+    80%,
+    100% {
+        text-shadow: .25em 0 0 black, .5em 0 0 black;
+    }
+}
+
+.loading::after {
+    content: '..';
+    animation: dot 1s steps(5, end) infinite;
+}
+
+.welcome-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.loading-container {
+    text-align: 'center';
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 6px;
+    width: 135px;
+}
+
+.loading-container-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ch-box {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 15px;
+    width: 99%;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+}
+
+.ch-box-inner {
+    display: flex;
+    align-items: center;
+}
+
+.ch-box-inner .MuiTypography-root {
+    font-weight: bold;
+}
+
+.send-button {
+    transition: transform 0.3s ease;
+}
+
+.send-button:hover {
+    transform: scale(1.1);
+}
+
+.send-button:active {
+    transform: scale(1);
+}
