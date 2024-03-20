@@ -36,7 +36,7 @@
 
 .loading-container {
     text-align: 'center';
-    border: 1px solid #ccc;
+    border: 1px solid #346751;
     border-radius: 15px;
     padding: 6px;
     width: 135px;
@@ -55,7 +55,7 @@
     padding: 10px 15px;
     border-radius: 15px;
     width: 99%;
-    background-color: #f5f5f5;
+    background-color: #c3ddc8;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
 }

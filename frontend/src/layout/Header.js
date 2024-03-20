@@ -7,7 +7,7 @@ function AppHeader() {
   return (
     <Box className="app-header" sx={{ backgroundColor: 'primary.main' }}>
       <Typography variant="h4" className="header-text" onClick={() => window.location.reload()}>
-          Code Crashers
+          Chatter Charm
       </Typography>
     </Box>
   );

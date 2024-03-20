@@ -4,7 +4,7 @@ import { Send as SendIcon, Download as DownloadIcon } from '@mui/icons-material'
 import axios from 'axios';
 import '../styles/Chat.css';
 import BotLogo from '../images/bot.png';
-import User from '../images/user.png';
+import User from '../images/user2.png';
 import Poster from '../images/poster.png';
 
 const Chat = () => {
@@ -31,21 +31,21 @@ const Chat = () => {
 
         setIsGenerating(true);
 
-        // axios.post(`http://localhost:8080/auth/query_data_with_cosmosDB`, Data, {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // }).then((res) => {
+        axios.post(`http://localhost:8080/auth/query_data`, Data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then((res) => {
 
-        //     const aiReply = res.data.llm_output;
-        //     setMessages([...newMessages, { text: aiReply, sender: 'ai' }]);
+            const poster = res.data.llm_output;
+            setMessages([...newMessages, { media: poster, sender: 'ai' }]);
 
-        //     setIsGenerating(false);
-        // });
+            setIsGenerating(false);
+        });
 
-        const poster = Poster;
-        setMessages([...newMessages, { media: poster, sender: 'ai' }]);
-        setIsGenerating(false);
+        // const poster = Poster;
+        // setMessages([...newMessages, { media: poster, sender: 'ai' }]);
+        // setIsGenerating(false);
     };
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const Chat = () => {
                         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                             <Box className='welcome-message'>
                                 <img src={BotLogo} alt="bot logo" style={{ width: '10%', margin: '20px', padding: '25px' }} />
-                                <Typography variant="h5" align="center">
+                                <Typography variant="h4" align="center">
                                     Provide details about your advertisement or promotion, and I'll design a custom poster for you.
                                 </Typography>
                             </Box>
@@ -87,18 +87,18 @@ const Chat = () => {
                                             <>
                                                 <img src={BotLogo} alt="bot" style={{ width: '40px' }} />
                                                 <Typography variant="body1" sx={{ marginLeft: '8px' }}>
-                                                    &nbsp;Chatbot
+                                                    &nbsp;Chatter Charm
                                                 </Typography>
                                             </>
                                         }
                                     </Box>
                                     {message.media ? (
                                         <Box sx={{ maxWidth: '50%', marginTop: '18px', position: 'relative' }}>
-                                            <img src={message.media} alt="AI Reply" style={{ width: '100%', borderRadius: '12px' }} />
+                                            <img src={`data:image/jpeg;base64,${message.media}`} alt="AI Reply" style={{ maxWidth: '100%', borderRadius: '12px' }} />
                                             <IconButton aria-label="download"
                                                 onClick={() => {
                                                     const link = document.createElement('a');
-                                                    link.href = message.media;
+                                                    link.href = `data:image/jpeg;base64,${message.media}`;
                                                     link.download = 'poster.jpg';
                                                     document.body.appendChild(link);
                                                     link.click();

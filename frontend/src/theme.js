@@ -4,8 +4,10 @@ import '@fontsource/poppins';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#61677A',
-      light: '#EEEEEE', 
+      main: '#3A7563',
+      light: '#D1E9D2', 
+      // main: '#346751',
+      // light: '#CCEEBC', 
     },
   },
   typography: {
@@ -16,7 +18,7 @@ const theme = createTheme({
       fontFamily: 'Poppins, sans-serif',
     },
     h4: {
-      fontWeight: 600, 
+      fontWeight: 500, 
       fontSize: 30,
       letterSpacing: 0.25, 
       fontFamily: 'Poppins, sans-serif',
